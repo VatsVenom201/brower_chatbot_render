@@ -18,6 +18,12 @@ def process_and_store_text(session_id: str, text: str) -> int:
     embeddings = get_embeddings(chunks)
     collection = get_or_create_collection(session_id)
     
+    # Clear old data from the session collection to prevent overlap
+    if collection.count() > 0:
+        all_ids = collection.get()["ids"]
+        if all_ids:
+            collection.delete(ids=all_ids)
+    
     ids = [f"chunk_{i}" for i in range(len(chunks))]
     collection.add(
         documents=chunks,
