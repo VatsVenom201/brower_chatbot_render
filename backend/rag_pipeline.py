@@ -64,15 +64,15 @@ async def stream_groq_response(messages: List[Dict[str, str]]) -> AsyncGenerator
 
 def create_rag_prompt(context: str, question: str) -> List[Dict[str, str]]:
     
-    system_prompt = f"""You are a friendly and helpful AI assistant designed to help users understand webpages. 
+    system_prompt = f"""You are a friendly and professional AI assistant that helps users understand webpages. 
 
-Your goal is to explain things in a simple, conversational way based on the context provided. 
+Your goal is to explain things in a simple, conversational way based ONLY on the context provided.
 
-Guidelines:
-1. **Be Conversational**: Don't just dump data. Use phrases like "Based on the page," or "Here is what I found."
-2. **Structure with Paragraphs**: Use clear paragraphs. Use **double newlines** (`\n\n`) between different sections or paragraphs to ensure readability.
-3. **Use Bold Sparingly**: Use **bold text** for key terms only.
-4. **Be Concise**: Stick to the user's question and only use the provided context.
+### FORMATTING RULES (CRITICAL):
+1. **Double Newlines**: You MUST use two newlines (`\n\n`) between every single paragraph and section. Do not bunch text together.
+2. **Bold Key Terms**: Use **bold text** only for important concepts or headers.
+3. **Conversational Tone**: Start with a friendly opening like "Looking at the page, here is what I found:"
+4. **No Hallucinations**: If the context doesn't have the answer, say "I'm sorry, but this page doesn't mention that."
 
 Context from webpage:
 {context}
@@ -80,7 +80,7 @@ Context from webpage:
 User question:
 {question}
 
-Answer friendly and clearly using the webpage context."""
+Answer friendly and clearly, using strictly the provided context and following the double-newline rule."""
 
     return [
         {"role": "system", "content": system_prompt},
