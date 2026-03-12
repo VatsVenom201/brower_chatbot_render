@@ -9,7 +9,6 @@ langchain-core
 langchain-text-splitters
 langchain-huggingface
 chromadb
-sentence-transformers
 httpx
 requests
 lxml_html_clean
