@@ -38,7 +38,7 @@ async def stream_groq_response(messages: List[Dict[str, str]]) -> AsyncGenerator
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "llama-3.1-8b-instant", # llama-3.3-70b-versatile , for better performance
+        "model": "meta-llama/llama-prompt-guard-2-86m", # llama-3.3-70b-versatile , for better performance
         "messages": messages,
         "stream": True
     }
